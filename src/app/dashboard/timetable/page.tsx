@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Siakad | Jadwal Pelajaran",
+};
+
 export default function TimetablePage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-blue-50">

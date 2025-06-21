@@ -15,7 +15,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
   return (
     <>
       {/* Sidebar Desktop */}
-      <aside className="sidebar-desktop m-10 overflow-y-auto" style={{height: '100vh'}}>
+      <aside className="sidebar-desktop m-10">
         {/* Judul di atas menu */}
         <div className="flex flex-col items-center mb-6">
           <span className="font-extrabold text-blue-900 text-xl md:text-2xl text-center leading-tight">Dashboard Guru dan Karyawan</span>

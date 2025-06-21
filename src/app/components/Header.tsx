@@ -21,7 +21,7 @@ export default function Header({ onBurgerClick }: HeaderProps) {
     return `${namaHari}, ${tanggal} ${namaBulan} ${tahun}`;
   }
   return (
-    <header className="w-full px-4 py-2 flex items-center justify-between bg-transparent relative z-40">
+    <header className="w-full px-4 py-2 pl-4 md:pl-8 flex items-center justify-between bg-transparent relative z-40">
       {/* Kiri: Burger menu, logo, judul */}
       <div className="flex items-center gap-2 min-w-0">
         <button
@@ -32,8 +32,8 @@ export default function Header({ onBurgerClick }: HeaderProps) {
         >
           <span className="material-icons text-3xl text-blue-900">menu</span>
         </button>
-        <img src="/images/logo.png" alt="Logo" className="h-10 w-10 md:h-12 md:w-12 object-contain" />
-        <span className="font-extrabold text-blue-900 text-lg md:text-xl leading-tight truncate">Dashboard</span>
+        <img src="/images/logo.png" alt="Logo" className="h-10 w-10 md:h-12 md:w-12 object-contain ml-2" />
+        <span className="font-extrabold text-blue-900 text-lg md:text-xl leading-tight truncate">Siakad Al Irsyad</span>
       </div>
       {/* Kanan: Tanggal */}
       <span className="text-xs md:text-base text-blue-900 font-medium whitespace-nowrap">{getFormattedDate()}</span>

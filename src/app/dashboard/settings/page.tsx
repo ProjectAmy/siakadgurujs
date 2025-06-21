@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Siakad | Pengaturan",
+};
+
 export default function SettingsPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-blue-50">

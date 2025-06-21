@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Siakad | Ujian",
+};
+
 export default function AssessmentPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-blue-50">
