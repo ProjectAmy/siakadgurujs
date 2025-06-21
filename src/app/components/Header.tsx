@@ -19,7 +19,7 @@ export default function Header() {
     <header className="w-full flex items-center px-6 h-16 justify-between" style={{background: 'transparent'}} >
       <div className="flex items-center gap-2">
         <img src="/images/logo.png" alt="Logo" className="h-16 w-16 object-contain" />
-        <span className="font-bold text-lg text-blue-700 tracking-wide">Dashboard Guru dan Karyawan</span>
+        <span className="font-bold text-lg text-blue-900 tracking-wide drop-shadow-sm">Dashboard Guru dan Karyawan</span>
       </div>
       <div className="ml-auto text-right">
         <span className="text-base text-blue-900 font-medium">{getFormattedDate()}</span>
