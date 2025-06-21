@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface LoginFormProps {}
 
@@ -17,11 +18,13 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     setPassword(event.target.value);
   };
 
+  const router = useRouter();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add your login logic here
     console.log("Username:", username);
     console.log("Password:", password);
+    router.push("/dashboard");
   };
 
   return (
@@ -88,8 +91,13 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           style={{ width: 44, height: 40, padding: 0 }}
           aria-label="Login dengan Google"
         >
-          {/* Google G Logo PNG official */}
-          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
+          <button
+            type="button"
+            aria-label="Login dengan Google"
+            onClick={() => router.push("/dashboard")}
+          >
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
+          </button>
         </button>
       </div>
     </form>
