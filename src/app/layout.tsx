@@ -13,15 +13,15 @@ export const metadata: Metadata = {
   description: "Sistem Informasi Akademik dan Database",
 };
 
-import Header from "./components/Header";
-import SidebarMenu from "./components/SidebarMenu";
-import Footer from "./components/Footer";
+
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <head>
@@ -29,14 +29,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <div className="min-h-screen flex flex-col bg-[#bddaff]">
-          <Header />
-          <div className="flex flex-1">
-            <SidebarMenu />
-            <main className="flex-1 p-6">{children}</main>
-          </div>
-          <Footer />
-        </div>
+        {children}
       </body>
     </html>
   );

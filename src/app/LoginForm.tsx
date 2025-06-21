@@ -87,17 +87,12 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         </button>
         <button
           type="button"
-          className="flex items-center justify-center border border-gray-300 bg-white text-gray-700 font-medium rounded-lg py-2 transition-colors hover:bg-gray-50 active:bg-gray-100 shadow-sm"
+          className="flex items-center justify-center border border-gray-300 bg-white text-gray-700 rounded transition shadow hover:shadow-md"
           style={{ width: 44, height: 40, padding: 0 }}
           aria-label="Login dengan Google"
+          onClick={() => router.push("/dashboard")}
         >
-          <button
-            type="button"
-            aria-label="Login dengan Google"
-            onClick={() => router.push("/dashboard")}
-          >
-            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
-          </button>
+          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
         </button>
       </div>
     </form>
