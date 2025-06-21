@@ -29,7 +29,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <div className="min-h-screen flex flex-col bg-gray-100">
+        <div className="min-h-screen flex flex-col bg-[#bddaff]">
           <Header />
           <div className="flex flex-1">
             <SidebarMenu />
