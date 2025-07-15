@@ -1,6 +1,6 @@
-export const metadata = {
-  title: "Siakad | Pengaturan",
-};
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Pengaturan");
 
 export default function SettingsPage() {
   return (

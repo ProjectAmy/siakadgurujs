@@ -1,3 +1,7 @@
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Laporan");
+
 export default function ComplainPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-blue-50">

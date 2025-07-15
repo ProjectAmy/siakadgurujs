@@ -1,6 +1,6 @@
-export const metadata = {
-  title: "Siakad | Dashboard",
-};
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Dashboard");
 
 export default function Dashboard() {
   return (

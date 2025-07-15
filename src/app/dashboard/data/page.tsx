@@ -1,3 +1,7 @@
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Data Siswa");
+
 export default function DataSiswaPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-blue-50">

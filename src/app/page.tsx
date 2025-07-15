@@ -1,3 +1,7 @@
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Beranda");
+
 import Image from "next/image";
 import LoginForm from "./LoginForm";
 

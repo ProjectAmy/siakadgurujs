@@ -1,6 +1,6 @@
-export const metadata = {
-  title: "Siakad | Input Nilai",
-};
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Input Nilai");
 
 export default function GradesInputPage() {
   return (

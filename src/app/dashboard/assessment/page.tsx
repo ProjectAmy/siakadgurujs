@@ -1,6 +1,6 @@
-export const metadata = {
-  title: "Siakad | Ujian",
-};
+import { getPageMetadata } from "@/utils/metadata";
+
+export const metadata = getPageMetadata("Ujian");
 
 export default function AssessmentPage() {
   return (
