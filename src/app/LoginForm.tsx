@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import { supabase } from "@/utils/supabaseClient";
 import { useRouter } from "next/navigation";
 
 type LoginFormProps = object;
@@ -92,7 +93,16 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           className="flex items-center justify-center border border-gray-300 bg-white text-gray-700 rounded transition shadow hover:shadow-md"
           style={{ width: 44, height: 40, padding: 0 }}
           aria-label="Login dengan Google"
-          onClick={() => router.push("/dashboard")}
+          onClick={async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: typeof window !== "undefined"
+          ? `${window.location.origin}/dashboard`
+          : undefined,
+      },
+    });
+  }}
         >
           <Image src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
         </button>
