@@ -94,7 +94,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           style={{ width: 44, height: 40, padding: 0 }}
           aria-label="Login dengan Google"
           onClick={async () => {
-    await supabase.auth.signInWithOAuth({
+    const result = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: typeof window !== "undefined"
@@ -102,6 +102,8 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           : undefined,
       },
     });
+    console.log("[DEBUG] Hasil signInWithOAuth:", result);
+    // Setelah redirect, session akan di-handle oleh Supabase client
   }}
         >
           <Image src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />

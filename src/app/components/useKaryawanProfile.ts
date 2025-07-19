@@ -33,7 +33,7 @@ console.log('DEBUG: Supabase user:', user);
         .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin")
         .eq("email_address", user.email)
         .single();
-console.log('DEBUG: Query result:', { data, error, email: user.email });
+      console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));
       if (error) {
         setError(error.message);
         setProfile(null);
