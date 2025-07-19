@@ -32,7 +32,7 @@ console.log('GOOGLE USER OBJECT:', user);
       const { data, error } = await supabase
         .from("karyawan")
         .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin")
-        .eq("email_address", "amysidra@gmail.com")
+        .eq("email_address", user.email)
         .single();
       console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));
       if (error) {
