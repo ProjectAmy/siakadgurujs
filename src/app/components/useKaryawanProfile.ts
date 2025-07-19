@@ -22,6 +22,7 @@ export function useKaryawanProfile() {
       // Ambil user saat ini dari Supabase Auth
       const { data: { user }, error: userError } = await supabase.auth.getUser();
 console.log('DEBUG: Supabase user:', user);
+console.log('GOOGLE USER OBJECT:', user);
       if (userError || !user) {
         setError("User tidak ditemukan");
         setLoading(false);
@@ -31,7 +32,7 @@ console.log('DEBUG: Supabase user:', user);
       const { data, error } = await supabase
         .from("karyawan")
         .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin")
-        .eq("email_address", user.email)
+        .eq("email_address", "amysidra@gmail.com")
         .single();
       console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));
       if (error) {
