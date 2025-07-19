@@ -1,14 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-interface LoginFormProps {}
+type LoginFormProps = object;
 
 const LoginForm: React.FC<LoginFormProps> = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [focused, setFocused] = React.useState(false);
+  // Removed unused state: focused and setFocused
+
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -92,7 +94,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           aria-label="Login dengan Google"
           onClick={() => router.push("/dashboard")}
         >
-          <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
+          <Image src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" width={22} height={22} style={{ display: 'block' }} />
         </button>
       </div>
     </form>

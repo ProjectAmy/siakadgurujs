@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +24,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
         {/* User Profile */}
         <div className="w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center mb-6">
           <div className="mb-8 w-24 h-24 rounded-full bg-white flex items-center justify-center mb-2 overflow-hidden">
-            <img src="/images/putra.png" alt="Profile" className="w-full h-full object-cover" />
+            <Image src="/images/putra.png" alt="Profile" width={96} height={96} className="w-full h-full object-cover" />
           </div>
           <Link href="/dashboard/profile" className="font-semibold text-gray-800 hover:underline">Amy Sidra</Link>
           <div className="mb-8 text-xs text-gray-400">Staff IT</div>
@@ -89,7 +90,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
           {/* User Profile */}
           <div className="w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center mb-6 mt-2">
             <div className="mb-8 w-24 h-24 rounded-full bg-white flex items-center justify-center mb-2 overflow-hidden">
-              <img src="/images/putra.png" alt="Profile" className="w-full h-full object-cover" />
+              <Image src="/images/putra.png" alt="Profile" width={96} height={96} className="w-full h-full object-cover" />
             </div>
             <Link href="/dashboard/profile" className="font-semibold text-gray-800 hover:underline" onClick={onClose}>Amy Sidra</Link>
             <div className="mb-8 text-xs text-gray-400">Staff IT</div>

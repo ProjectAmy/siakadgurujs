@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface HeaderProps {
   onBurgerClick?: () => void;
@@ -32,7 +33,7 @@ export default function Header({ onBurgerClick }: HeaderProps) {
         >
           <span className="material-icons text-3xl text-blue-900">menu</span>
         </button>
-        <img src="/images/logo.png" alt="Logo" className="h-10 w-10 md:h-12 md:w-12 object-contain ml-2" />
+        <Image src="/images/logo.png" alt="Logo" width={48} height={48} className="h-10 w-10 md:h-12 md:w-12 object-contain ml-2" />
         <span className="font-extrabold text-blue-900 text-lg md:text-xl leading-tight truncate">Siakad Al Irsyad</span>
       </div>
       {/* Kanan: Tanggal */}
