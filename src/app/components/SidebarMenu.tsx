@@ -24,11 +24,8 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
   return (
     <>
       {/* Sidebar Desktop */}
-      <aside className="sidebar-desktop m-10">
-        {/* Judul di atas menu */}
-        <div className="flex flex-col items-center mb-6">
-          <span className="font-extrabold text-blue-900 text-xl md:text-2xl text-center leading-tight">Dashboard Guru dan Karyawan</span>
-        </div>
+      <aside className="sidebar-desktop mt-6 mx-10">
+        
         {/* User Profile */}
         <div className="w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center mb-6">
           <div className="mb-8 w-24 h-24 rounded-full bg-white flex items-center justify-center mb-2 overflow-hidden">
@@ -96,7 +93,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
         <aside className={`sidebar-mobile open p-4 overflow-y-auto`} style={{height: '100vh'}}>
           {/* Judul di atas menu mobile */}
           <div className="flex flex-col items-center mt-2 mb-4">
-            <span className="font-extrabold text-blue-900 text-xl text-center leading-tight">Dashboard Guru dan Karyawan</span>
+            <span className="font-regular text-blue-900 text-xl text-center leading-tight">Dashboard Karyawan</span>
           </div>
           {/* Tombol close */}
           <button
