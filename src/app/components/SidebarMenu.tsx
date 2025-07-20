@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useKaryawanProfile } from "./useKaryawanProfile";
 import Image from "next/image";

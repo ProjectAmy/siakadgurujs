@@ -46,5 +46,10 @@ console.log('GOOGLE USER OBJECT:', user);
     fetchProfile();
   }, []);
 
+  useEffect(() => {
+    // Debug: track loading, user, and error state
+    console.log('DEBUG TRACKER:', { loading, profile, error });
+  }, [loading, profile, error]);
+
   return { profile, loading, error };
 }
