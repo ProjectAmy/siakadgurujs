@@ -2,32 +2,35 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
 
-export interface KaryawanEmail {
-  email_address: string;
+export interface KaryawanTableRow {
+  nama_lengkap: string;
+  nomor_whatsapp: string;
+  unit_sekolah: string;
+  tanggal_lahir: string; // ISO string from DB
 }
 
-export function useAllKaryawanEmails() {
-  const [emails, setEmails] = useState<KaryawanEmail[]>([]);
+export function useAllKaryawanTableData() {
+  const [karyawan, setKaryawan] = useState<KaryawanTableRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchEmails() {
+    async function fetchKaryawan() {
       setLoading(true);
       setError(null);
       const { data, error } = await supabase
         .from("karyawan")
-        .select("email_address");
+        .select("nama_lengkap, nomor_whatsapp, unit_sekolah, tanggal_lahir");
       if (error) {
         setError(error.message);
-        setEmails([]);
+        setKaryawan([]);
       } else {
-        setEmails(data || []);
+        setKaryawan(data || []);
       }
       setLoading(false);
     }
-    fetchEmails();
+    fetchKaryawan();
   }, []);
 
-  return { emails, loading, error };
+  return { karyawan, loading, error };
 }
