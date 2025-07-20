@@ -9,7 +9,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Siakad GuKar",
+  title: "Siakad karyawan",
   description: "Sistem Informasi Akademik dan Database",
 };
 

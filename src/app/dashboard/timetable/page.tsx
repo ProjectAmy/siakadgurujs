@@ -1,6 +1,6 @@
-import { getPageMetadata } from "@/utils/metadata";
+// import { getPageMetadata } from "@/utils/metadata";
 
-export const metadata = getPageMetadata("Jadwal Pelajaran");
+// export const metadata = getPageMetadata("Jadwal Pelajaran");
 
 export default function TimetablePage() {
   return (

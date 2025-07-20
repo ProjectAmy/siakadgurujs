@@ -8,6 +8,8 @@ export interface KaryawanProfile {
   keterangan: string;
   jabatan: string;
   jenis_kelamin: string;
+  panggilan: string;
+  nama_singkat: string;
 }
 
 export function useKaryawanProfile() {
@@ -31,7 +33,7 @@ console.log('GOOGLE USER OBJECT:', user);
       // Query tabel karyawan dengan email user
       const { data, error } = await supabase
         .from("karyawan")
-        .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin")
+        .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin, panggilan, nama_singkat")
         .eq("email_address", user.email)
         .single();
       console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));
