@@ -14,6 +14,7 @@ export interface KaryawanProfile {
 
 export function useKaryawanProfile() {
   const [profile, setProfile] = useState<KaryawanProfile | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,13 +24,15 @@ export function useKaryawanProfile() {
       setError(null);
       // Ambil user saat ini dari Supabase Auth
       const { data: { user }, error: userError } = await supabase.auth.getUser();
-console.log('DEBUG: Supabase user:', user);
-console.log('GOOGLE USER OBJECT:', user);
+      console.log('DEBUG: Supabase user:', user);
       if (userError || !user) {
         setError("User tidak ditemukan");
         setLoading(false);
+        setRole(null);
         return;
       }
+      // Ambil role dari user_metadata Supabase
+      setRole(user.user_metadata?.role || null);
       // Query tabel karyawan dengan email user
       const { data, error } = await supabase
         .from("karyawan")
@@ -53,5 +56,5 @@ console.log('GOOGLE USER OBJECT:', user);
     console.log('DEBUG TRACKER:', { loading, profile, error });
   }, [loading, profile, error]);
 
-  return { profile, loading, error };
+  return { profile, loading, error, role };
 }

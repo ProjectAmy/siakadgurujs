@@ -5,7 +5,7 @@ import { useKaryawanProfile } from "../components/useKaryawanProfile";
 import { useAllKaryawanEmails } from "../components/useAllKaryawanEmails";
 
 export default function Dashboard() {
-  const { profile, loading, error } = useKaryawanProfile();
+  const { profile, loading, error, role } = useKaryawanProfile();
   const { emails, loading: loadingEmails, error: errorEmails } = useAllKaryawanEmails();
   return (
     <>
@@ -24,22 +24,24 @@ export default function Dashboard() {
             </span>
           )}
         </div>
-        <div className="pt-4 px-6">
-          <h2 className="text-lg font-semibold mb-2 text-blue-800">Daftar Email Karyawan</h2>
-          {loadingEmails ? (
-            <span className="animate-pulse text-gray-400">Memuat daftar email...</span>
-          ) : errorEmails ? (
-            <span className="text-red-500">{errorEmails}</span>
-          ) : (
-            <ul className="list-disc pl-5 space-y-1">
-              {emails.map((item, idx) => (
-                <li key={item.email_address || idx} className="text-blue-700 text-sm">
-                  {item.email_address}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        {role === "admin" && (
+          <div className="pt-4 px-6">
+            <h2 className="text-lg font-semibold mb-2 text-blue-800">Daftar Email Karyawan</h2>
+            {loadingEmails ? (
+              <span className="animate-pulse text-gray-400">Memuat daftar email...</span>
+            ) : errorEmails ? (
+              <span className="text-red-500">{errorEmails}</span>
+            ) : (
+              <ul className="list-disc pl-5 space-y-1">
+                {emails.map((item, idx) => (
+                  <li key={item.email_address || idx} className="text-blue-700 text-sm">
+                    {item.email_address}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
