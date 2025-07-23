@@ -7,6 +7,7 @@ export interface KaryawanTableRow {
   nomor_whatsapp: string;
   unit_sekolah: string;
   tanggal_lahir: string; // ISO string from DB
+  status_kepegawaian: string; // status dari database
 }
 
 export function useAllKaryawanTableData() {
@@ -20,7 +21,7 @@ export function useAllKaryawanTableData() {
       setError(null);
       const { data, error } = await supabase
         .from("karyawan")
-        .select("nama_lengkap, nomor_whatsapp, unit_sekolah, tanggal_lahir");
+        .select("nama_lengkap, nomor_whatsapp, unit_sekolah, tanggal_lahir, status_kepegawaian");
       if (error) {
         setError(error.message);
         setKaryawan([]);

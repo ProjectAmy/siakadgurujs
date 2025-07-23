@@ -40,6 +40,7 @@ export default function Dashboard() {
                     <tr className="bg-blue-100">
                       <th className="py-2 px-3 border-b text-center text-blue-900 font-bold">No</th>
                       <th className="py-2 px-3 border-b text-left text-blue-900 font-bold">Nama Lengkap</th>
+                      <th className="py-2 px-6 border-b text-center text-blue-900 font-bold">Status</th>
                       <th className="py-2 px-3 border-b text-left text-blue-900 font-bold">Nomor Whatsapp</th>
                       <th className="py-2 px-3 border-b text-left text-blue-900 font-bold">Unit Sekolah</th>
                       <th className="py-2 px-3 border-b text-center text-blue-900 font-bold">Umur</th>
@@ -70,6 +71,7 @@ export default function Dashboard() {
                           <tr key={item.nomor_whatsapp + idx} className="even:bg-blue-50">
                             <td className="py-2 px-3 border-b text-blue-900 font-medium text-center">{idx + 1}</td>
                             <td className="py-2 px-3 border-b text-blue-900 font-medium">{item.nama_lengkap}</td>
+                            <td className="py-2 px-6 border-b text-blue-900 font-medium text-center whitespace-nowrap">{item.status_kepegawaian || '-'}</td>
                             <td className="py-2 px-3 border-b text-blue-900">
                               {item.nomor_whatsapp ? (
                                 <a
@@ -92,8 +94,8 @@ export default function Dashboard() {
                   </tbody>
                 </table>
               </div>
-              {/* Card untuk layar mobile */}
-              <div className="w-full max-w-3xl flex flex-col gap-4 sm:hidden">
+              {/* Tabel untuk layar mobile */}
+              <div className="block sm:hidden w-full max-w-3xl">
                 {karyawan
                   .slice()
                   .sort((a, b) => {
