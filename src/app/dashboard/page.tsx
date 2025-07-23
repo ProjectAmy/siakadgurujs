@@ -26,7 +26,39 @@ export default function Dashboard() {
         </div>
         {role === "admin" && (
           <div className="pt-4 px-6 flex flex-col items-center">
-            <h2 className="text-lg font-semibold mb-2 text-blue-800 w-full max-w-3xl text-left">Tabel Data Karyawan</h2>
+            <div className="w-full max-w-3xl grid grid-cols-2 sm:grid-cols-5 gap-4 mb-6">
+  {/* Total Karyawan */}
+  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+    <span className="text-2xl">👥</span>
+    <span className="text-xs text-gray-500 mt-1">Total Karyawan</span>
+    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.length}</span>
+  </div>
+  {/* Karyawan Tetap */}
+  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+    <span className="text-2xl">🟦</span>
+    <span className="text-xs text-gray-500 mt-1">Karyawan Tetap</span>
+    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('tetap') && !k.status_kepegawaian.toLowerCase().includes('tidak')).length}</span>
+  </div>
+  {/* Karyawan Tidak Tetap */}
+  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+    <span className="text-2xl">🟨</span>
+    <span className="text-xs text-gray-500 mt-1">Tidak Tetap</span>
+    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('tidak tetap')).length}</span>
+  </div>
+  {/* Karyawan Percobaan */}
+  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+    <span className="text-2xl">🧪</span>
+    <span className="text-xs text-gray-500 mt-1">Percobaan</span>
+    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('percobaan')).length}</span>
+  </div>
+  {/* Karyawan Honorer */}
+  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+    <span className="text-2xl">💼</span>
+    <span className="text-xs text-gray-500 mt-1">Honorer</span>
+    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('honorer')).length}</span>
+  </div>
+</div>
+<h2 className="text-lg font-semibold mb-2 text-blue-800 w-full max-w-3xl text-left">Tabel Data Karyawan</h2>
             {loadingKaryawan ? (
               <span className="animate-pulse text-gray-400">Memuat data karyawan...</span>
             ) : errorKaryawan ? (
