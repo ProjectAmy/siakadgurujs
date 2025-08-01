@@ -3,6 +3,7 @@ import DashboardFragmentCleanup from "./DashboardFragmentCleanup";
 
 import { useKaryawanProfile } from "../components/useKaryawanProfile";
 import { useAllKaryawanTableData, KaryawanTableRow } from "../components/useAllKaryawanEmails";
+import Link from "next/link";
 
 export default function Dashboard() {
   const { profile, loading, error, role } = useKaryawanProfile();
@@ -20,7 +21,12 @@ export default function Dashboard() {
             <span className="text-red-500">Profil tidak ditemukan</span>
           ) : (
             <span className="text-xl md:text-2xl font-regular text-blue-900 text-center block">
-              Ahlan Wa Sahlan, {profile.panggilan} {profile.nama_singkat}!
+              Ahlan Wa Sahlan,
+              <Link href="/dashboard/profile">
+                <span className="font-bold hover:underline hover:text-blue-700 cursor-pointer transition-colors">
+                  {profile.panggilan} {profile.nama_singkat}
+                </span>
+              </Link>!
             </span>
           )}
         </div>

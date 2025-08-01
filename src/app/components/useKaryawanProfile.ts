@@ -10,6 +10,9 @@ export interface KaryawanProfile {
   jenis_kelamin: string;
   panggilan: string;
   nama_singkat: string;
+  unit_sekolah: string;
+  status_kepegawaian: string;
+  jabatan_karyawan: string;
 }
 
 export function useKaryawanProfile() {
@@ -36,7 +39,7 @@ export function useKaryawanProfile() {
       // Query tabel karyawan dengan email user
       const { data, error } = await supabase
         .from("karyawan")
-        .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin, panggilan, nama_singkat")
+        .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin, panggilan, nama_singkat, unit_sekolah, status_kepegawaian, jabatan")
         .eq("email_address", user.email)
         .single();
       console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));

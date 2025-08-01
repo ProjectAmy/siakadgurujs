@@ -29,22 +29,24 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
         {/* User Profile */}
         <div className="w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center mb-6">
           <div className="mb-8 w-24 h-24 rounded-full bg-white flex items-center justify-center mb-2 overflow-hidden">
-  <Image src={imgSrc} alt="Profile" width={96} height={96} className="w-full h-full object-cover" />
-</div>
-{loading ? (
-  <div className="mb-8 text-xs text-gray-400">Loading...</div>
-) : error ? (
-  <div className="mb-8 text-xs text-red-400">{error}</div>
-) : profile ? (
-  <>
-    <span className="font-semibold text-gray-800 text-base text-center block">
-      {profile.nama_lengkap}{profile.title ? `, ${profile.title}` : ""}
-    </span>
-    <div className="mb-8 text-xs text-gray-400">
-      {profile.keterangan}{profile.jabatan && profile.jabatan !== "Tidak menjabat" ? ` - ${profile.jabatan}` : ""}
-    </div>
-  </>
-) : null}
+            <Image src={imgSrc} alt="Profile" width={96} height={96} className="w-full h-full object-cover" />
+          </div>
+          {loading ? (
+            <div className="mb-8 text-xs text-gray-400">Loading...</div>
+          ) : error ? (
+            <div className="mb-8 text-xs text-red-400">{error}</div>
+          ) : profile ? (
+            <>
+              <Link href="/dashboard/profile">
+                <span className="font-semibold text-gray-800 text-base text-center block hover:underline hover:text-blue-900 cursor-pointer transition-colors">
+                  {profile.nama_lengkap}{profile.title ? `, ${profile.title}` : ""}
+                </span>
+              </Link>
+              <div className="mb-8 text-xs text-gray-400">
+                {profile.keterangan}{profile.jabatan && profile.jabatan !== "Tidak menjabat" ? ` - ${profile.jabatan}` : ""}
+              </div>
+            </>
+          ) : null}
           <Link href="/dashboard" className="flex w-full gap-2 px-3 py-2 rounded hover:bg-blue-50 text-gray-700 justify-start items-start">
             <span className="material-icons text-base">home</span>Home
           </Link>
