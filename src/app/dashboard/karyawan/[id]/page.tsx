@@ -4,42 +4,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
 import Image from "next/image";
 
-interface KaryawanProfile {
-  id: string;
-  nama_lengkap: string;
-  nama_singkat?: string;
-  panggilan?: string;
-  title?: string;
-  jenis_kelamin?: string;
-  keterangan?: string;
-  unit_sekolah?: string;
-  status_kepegawaian?: string;
-  jabatan_karyawan?: string;
-  jabatan?: string;
-  tempat_lahir?: string;
-  tanggal_lahir?: string;
-  alamat_lengkap?: string;
-  nomor_ktp?: string;
-  nomor_kk?: string;
-  status_pernikahan?: string;
-  email_address?: string;
-  nomor_whatsapp?: string;
-  pendidikan_terakhir?: string;
-  almamater?: string;
-  bergabung?: string;
-  posisi?: string;
-  keluar?: string;
-  sebab?: string;
-}
-
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function Page({ params }: PageProps) {
-  const [profile, setProfile] = useState<KaryawanProfile | null>(null);
+export default function Page({ params }: any) {
+  const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
