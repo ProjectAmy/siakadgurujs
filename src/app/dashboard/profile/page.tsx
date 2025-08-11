@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useKaryawanProfile } from "@/app/components/useKaryawanProfile";
 
 export default function ProfilePage() {
@@ -17,14 +18,15 @@ export default function ProfilePage() {
         ) : profile ? (
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-2xl">
             {/* Foto Profil Kiri */}
-            <div className="w-48 h-48 bg-white flex-shrink-0 flex items-center justify-center overflow-hidden shadow rounded-lg mb-4 md:mb-0 md:ml-0 self-start">
-              <img
+            <div className="w-48 h-48 bg-white flex-shrink-0 flex items-center justify-center overflow-hidden shadow rounded-lg mb-4 md:mb-0 md:ml-0 self-start relative">
+              <Image
                 src={profile.jenis_kelamin === "P" ? "/images/putri.png" : "/images/putra.png"}
-                alt="Profile"
+                alt={`Foto profil ${profile.nama_lengkap}`}
                 width={192}
                 height={192}
-                className="w-full h-full object-contain"
-                style={{objectPosition: 'center'}}
+                className="object-contain"
+                style={{ objectPosition: 'center' }}
+                priority
               />
             </div>
             {/* Keterangan Kanan */}

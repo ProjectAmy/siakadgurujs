@@ -2,13 +2,42 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
+import Image from "next/image";
+
+interface KaryawanProfile {
+  id: string;
+  nama_lengkap: string;
+  nama_singkat?: string;
+  panggilan?: string;
+  title?: string;
+  jenis_kelamin?: string;
+  keterangan?: string;
+  unit_sekolah?: string;
+  status_kepegawaian?: string;
+  jabatan_karyawan?: string;
+  jabatan?: string;
+  tempat_lahir?: string;
+  tanggal_lahir?: string;
+  alamat_lengkap?: string;
+  nomor_ktp?: string;
+  nomor_kk?: string;
+  status_pernikahan?: string;
+  email_address?: string;
+  nomor_whatsapp?: string;
+  pendidikan_terakhir?: string;
+  almamater?: string;
+  bergabung?: string;
+  posisi?: string;
+  keluar?: string;
+  sebab?: string;
+}
 
 interface Props {
   params: { id: string }
 }
 
 export default function Page({ params }: Props) {
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<KaryawanProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -48,14 +77,15 @@ export default function Page({ params }: Props) {
         ) : profile ? (
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-2xl">
             {/* Foto Profil Kiri */}
-            <div className="w-48 h-48 bg-white flex-shrink-0 flex items-center justify-center overflow-hidden shadow rounded-lg mb-4 md:mb-0 md:ml-0 self-start">
-              <img
+            <div className="w-48 h-48 bg-white flex-shrink-0 flex items-center justify-center overflow-hidden shadow rounded-lg mb-4 md:mb-0 md:ml-0 self-start relative">
+              <Image
                 src={profile.jenis_kelamin === "P" ? "/images/putri.png" : "/images/putra.png"}
-                alt="Profile"
+                alt={`Foto profil ${profile.nama_lengkap}`}
                 width={192}
                 height={192}
-                className="w-full h-full object-contain"
-                style={{objectPosition: 'center'}}
+                className="object-contain"
+                style={{ objectPosition: 'center' }}
+                priority
               />
             </div>
             {/* Keterangan Kanan */}
