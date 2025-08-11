@@ -117,9 +117,11 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
   <div className="mb-8 text-xs text-red-400">{error}</div>
 ) : profile ? (
   <>
-    <span className="font-semibold text-gray-800 text-base text-center block">
-      {profile.nama_lengkap}{profile.title ? `, ${profile.title}` : ""}
-    </span>
+    <Link href="/dashboard/profile">
+      <span className="font-semibold text-gray-800 text-base text-center block hover:underline hover:text-blue-900 cursor-pointer transition-colors">
+        {profile.nama_lengkap}{profile.title ? `, ${profile.title}` : ""}
+      </span>
+    </Link>
     <div className="mb-8 text-xs text-gray-400">
       {profile.keterangan}{profile.jabatan && profile.jabatan !== "Tidak menjabat" ? ` - ${profile.jabatan}` : ""}
     </div>

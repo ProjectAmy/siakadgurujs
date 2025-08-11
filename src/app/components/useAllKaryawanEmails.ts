@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
 
 export interface KaryawanTableRow {
+  id: number;
   nama_lengkap: string;
   nomor_whatsapp: string;
   unit_sekolah: string;
@@ -21,7 +22,7 @@ export function useAllKaryawanTableData() {
       setError(null);
       const { data, error } = await supabase
         .from("karyawan")
-        .select("nama_lengkap, nomor_whatsapp, unit_sekolah, tanggal_lahir, status_kepegawaian");
+        .select("id, nama_lengkap, nomor_whatsapp, unit_sekolah, tanggal_lahir, status_kepegawaian");
       if (error) {
         setError(error.message);
         setKaryawan([]);

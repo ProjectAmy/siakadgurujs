@@ -21,50 +21,48 @@ export default function Dashboard() {
             <span className="text-red-500">Profil tidak ditemukan</span>
           ) : (
             <span className="text-xl md:text-2xl font-regular text-blue-900 text-center block">
-              Ahlan Wa Sahlan,
-              <Link href="/dashboard/profile">
-                <span className="font-bold hover:underline hover:text-blue-700 cursor-pointer transition-colors">
-                  {profile.panggilan} {profile.nama_singkat}
-                </span>
-              </Link>!
+              Ahlan Wa Sahlan,<br />
+              <span className="font-bold"> 
+                {profile.panggilan} {profile.nama_singkat}
+              </span>!
             </span>
           )}
         </div>
         {role === "admin" && (
           <div className="pt-4 px-6 flex flex-col items-center">
             <div className="w-full max-w-3xl grid grid-cols-2 sm:grid-cols-5 gap-4 mb-6">
-  {/* Total Karyawan */}
-  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
-    <span className="text-2xl">👥</span>
-    <span className="text-xs text-gray-500 mt-1">Total Karyawan</span>
-    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.length}</span>
-  </div>
-  {/* Karyawan Tetap */}
-  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
-    <span className="text-2xl">🟦</span>
-    <span className="text-xs text-gray-500 mt-1">Karyawan Tetap</span>
-    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('tetap') && !k.status_kepegawaian.toLowerCase().includes('tidak')).length}</span>
-  </div>
-  {/* Karyawan Tidak Tetap */}
-  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
-    <span className="text-2xl">🟨</span>
-    <span className="text-xs text-gray-500 mt-1">Tidak Tetap</span>
-    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('tidak tetap')).length}</span>
-  </div>
-  {/* Karyawan Percobaan */}
-  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
-    <span className="text-2xl">🧪</span>
-    <span className="text-xs text-gray-500 mt-1">Percobaan</span>
-    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('percobaan')).length}</span>
-  </div>
-  {/* Karyawan Honorer */}
-  <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
-    <span className="text-2xl">💼</span>
-    <span className="text-xs text-gray-500 mt-1">Honorer</span>
-    <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('honorer')).length}</span>
-  </div>
-</div>
-<h2 className="text-lg font-semibold mb-2 text-blue-800 w-full max-w-3xl text-left">Tabel Data Karyawan</h2>
+            {/* Total Karyawan */}
+            <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+              <span className="text-2xl">👥</span>
+              <span className="text-xs text-gray-500 mt-1">Total Karyawan</span>
+              <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.length}</span>
+            </div>
+            {/* Karyawan Tetap */}
+            <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+              <span className="text-2xl">🟦</span>
+              <span className="text-xs text-gray-500 mt-1">Karyawan Tetap</span>
+              <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('tetap') && !k.status_kepegawaian.toLowerCase().includes('tidak')).length}</span>
+            </div>
+            {/* Karyawan Tidak Tetap */}
+            <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+              <span className="text-2xl">🟨</span>
+              <span className="text-xs text-gray-500 mt-1">Tidak Tetap</span>
+              <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('tidak tetap')).length}</span>
+            </div>
+            {/* Karyawan Percobaan */}
+            <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+              <span className="text-2xl">🧪</span>
+              <span className="text-xs text-gray-500 mt-1">Percobaan</span>
+              <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('percobaan')).length}</span>
+            </div>
+            {/* Karyawan Honorer */}
+            <div className="bg-white rounded-lg shadow p-3 flex flex-col items-center">
+              <span className="text-2xl">💼</span>
+              <span className="text-xs text-gray-500 mt-1">Honorer</span>
+              <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('honorer')).length}</span>
+            </div>
+          </div>
+          <h2 className="text-lg font-semibold mb-2 text-blue-800 w-full max-w-3xl text-left">Tabel Data Karyawan</h2>
             {loadingKaryawan ? (
               <span className="animate-pulse text-gray-400">Memuat data karyawan...</span>
             ) : errorKaryawan ? (
@@ -108,7 +106,11 @@ export default function Dashboard() {
                         return (
                           <tr key={item.nomor_whatsapp + idx} className="even:bg-blue-50">
                             <td className="py-2 px-3 border-b text-blue-900 font-medium text-center">{idx + 1}</td>
-                            <td className="py-2 px-3 border-b text-blue-900 font-medium">{item.nama_lengkap}</td>
+                            <td className="py-2 px-3 border-b text-blue-900 font-medium">
+  <Link href={`/dashboard/karyawan/${item.id}`} className="text-blue-700 underline hover:text-blue-900">
+    {item.nama_lengkap}
+  </Link>
+</td>
                             <td className="py-2 px-6 border-b text-blue-900 font-medium text-center whitespace-nowrap">{item.status_kepegawaian || '-'}</td>
                             <td className="py-2 px-3 border-b text-blue-900">
                               {item.nomor_whatsapp ? (
@@ -162,7 +164,11 @@ export default function Dashboard() {
                         </div> */}
                         <div className="flex justify-between">
                           <span className="font-bold text-blue-900">Nama</span>
-                          <span className="text-blue-900 font-medium text-right">{item.nama_lengkap}</span>
+                          <span className="text-blue-900 font-medium text-right">
+  <Link href={`/dashboard/karyawan/${item.id}`} className="text-blue-700 underline hover:text-blue-900">
+    {item.nama_lengkap}
+  </Link>
+</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="font-bold text-blue-900">Whatsapp</span>
