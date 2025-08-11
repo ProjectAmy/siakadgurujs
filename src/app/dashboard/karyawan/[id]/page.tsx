@@ -32,12 +32,11 @@ interface KaryawanProfile {
   sebab?: string;
 }
 
-interface PageProps {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+interface PageParams {
+  id: string;
 }
 
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: { params: PageParams }) {
   const [profile, setProfile] = useState<KaryawanProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
