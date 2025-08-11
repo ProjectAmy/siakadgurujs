@@ -54,8 +54,9 @@ export default function Page({ params }: Props) {
 
         if (error) throw error;
         setProfile(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        const error = err as Error;
+        setError(error.message);
       } finally {
         setLoading(false);
       }
