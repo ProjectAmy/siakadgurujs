@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HeaderProps {
   onBurgerClick?: () => void;
@@ -33,8 +34,18 @@ export default function Header({ onBurgerClick }: HeaderProps) {
     >
       <span className="material-icons text-3xl text-blue-900">menu</span>
     </button>
-    <Image src="/images/logo.png" alt="Logo" width={48} height={48} className="h-10 w-10 md:h-12 md:w-12 object-contain ml-2" />
-    <span className="font-regular text-blue-900 text-lg md:text-xl leading-tight truncate font-sans">Siakad Al Irsyad</span>
+    <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+      <Image 
+        src="/images/logo.png" 
+        alt="Logo" 
+        width={48} 
+        height={48} 
+        className="h-10 w-10 md:h-12 md:w-12 object-contain ml-2" 
+      />
+      <span className="font-regular text-blue-900 text-lg md:text-xl leading-tight truncate font-sans">
+        Siakad Al Irsyad
+      </span>
+    </Link>
   </div>
   {/* Tengah: Judul Dashboard Karyawan, hanya desktop */}
   <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
