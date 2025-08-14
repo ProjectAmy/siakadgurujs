@@ -73,8 +73,11 @@ export default function Page({ params }: Props) {
                   <div className="flex flex-col">
                     <span className="text-xs text-gray-500">Tempat, Tanggal Lahir</span>
                     <span className="font-medium text-blue-800">
-                      {[profile.tempat_lahir, profile.tanggal_lahir ? new Date(profile.tanggal_lahir).toLocaleDateString('id-ID') : '']
-                        .filter(Boolean).join(', ') || '-'}
+                      {[profile.tempat_lahir, profile.tanggal_lahir ? new Date(profile.tanggal_lahir).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                      }) : ''].filter(Boolean).join(', ') || '-'}
                     </span>
                   </div>
                   <div className="flex flex-col md:col-span-2">

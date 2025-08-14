@@ -13,6 +13,20 @@ export interface KaryawanProfile {
   unit_sekolah: string;
   status_kepegawaian: string;
   jabatan_karyawan: string;
+  tempat_lahir: string;
+  tanggal_lahir: string;
+  alamat_lengkap: string;
+  nomor_ktp: string;
+  nomor_kk: string;
+  status_pernikahan: string;
+  email_address: string;
+  nomor_whatsapp: string;
+  pendidikan_terakhir: string;
+  almamater: string;
+  bergabung: string;
+  posisi: string;
+  keluar: string;
+  sebab: string;
 }
 
 export function useKaryawanProfile() {
@@ -39,7 +53,7 @@ export function useKaryawanProfile() {
       // Query tabel karyawan dengan email user
       const { data, error } = await supabase
         .from("karyawan")
-        .select("nama_lengkap, title, keterangan, jabatan, jenis_kelamin, panggilan, nama_singkat, unit_sekolah, status_kepegawaian, jabatan")
+        .select("*")
         .eq("email_address", user.email)
         .single();
       console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));
