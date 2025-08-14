@@ -24,9 +24,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
   const router = useRouter();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Add your login logic here
-    console.log("Username:", username);
-    console.log("Password:", password);
+    // Handle login logic here
     router.push("/dashboard");
   };
 
@@ -102,7 +100,6 @@ const LoginForm: React.FC<LoginFormProps> = () => {
           : undefined,
       },
     });
-    console.log("[DEBUG] Hasil signInWithOAuth:", result);
     // Setelah redirect, session akan di-handle oleh Supabase client
   }}
         >

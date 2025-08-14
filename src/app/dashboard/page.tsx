@@ -23,7 +23,7 @@ export default function Dashboard() {
             <span className="text-xl md:text-2xl font-regular text-blue-900 text-center block">
               Ahlan Wa Sahlan,<br />
               <span className="font-bold"> 
-                {profile.panggilan} {profile.nama_singkat}
+                {profile.editable?.[0]?.panggilan || profile.panggilan} {profile.editable?.[0]?.nama_singkat || profile.nama_singkat}
               </span>!
             </span>
           )}

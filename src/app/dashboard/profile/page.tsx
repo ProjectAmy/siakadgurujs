@@ -8,7 +8,9 @@ export default function ProfilePage() {
     <div className="rounded-2xl min-h-screen flex flex-col bg-white">
       <div className="pt-8 px-6">
         <h1 className="text-3xl font-regular mb-12 text-blue-900">
-          {profile ? `Profil ${profile.panggilan && profile.panggilan !== 'Tidak ada panggilan khusus' ? ` ${profile.panggilan}` : ''} ${profile.nama_singkat || profile.nama_lengkap}` : 'Profil'}
+          {profile ? `Profil ${
+            (profile.editable?.[0]?.panggilan || (profile.panggilan && profile.panggilan !== 'Tidak ada panggilan khusus' ? profile.panggilan : ''))
+          } ${profile.editable?.[0]?.nama_singkat || profile.nama_lengkap}` : 'Profil'}
         </h1>
         {loading ? (
           <p className="text-gray-400">Loading...</p>

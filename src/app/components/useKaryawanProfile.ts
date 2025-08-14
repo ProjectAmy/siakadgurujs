@@ -2,6 +2,13 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
 
+interface EditableField {
+  panggilan?: string;
+  nama_singkat?: string;
+}
+
+type EditableFields = EditableField[];
+
 export interface KaryawanProfile {
   nama_lengkap: string;
   title: string;
@@ -27,6 +34,7 @@ export interface KaryawanProfile {
   posisi: string;
   keluar: string;
   sebab: string;
+  editable?: EditableFields;
 }
 
 export function useKaryawanProfile() {
@@ -41,7 +49,6 @@ export function useKaryawanProfile() {
       setError(null);
       // Ambil user saat ini dari Supabase Auth
       const { data: { user }, error: userError } = await supabase.auth.getUser();
-      console.log('DEBUG: Supabase user:', user);
       if (userError || !user) {
         setError("User tidak ditemukan");
         setLoading(false);
@@ -50,13 +57,16 @@ export function useKaryawanProfile() {
       }
       // Ambil role dari user_metadata Supabase
       setRole(user.user_metadata?.role || null);
-      // Query tabel karyawan dengan email user
+      // Query tabel karyawan dengan join ke tabel editable
       const { data, error } = await supabase
         .from("karyawan")
-        .select("*")
+        .select(`
+          *,
+          editable (panggilan, nama_singkat)
+        `)
         .eq("email_address", user.email)
         .single();
-      console.log('DEBUG: Query result:', JSON.stringify({ data, error, email: user?.email }, null, 2));
+        
       if (error) {
         setError(error.message);
         setProfile(null);
@@ -68,10 +78,7 @@ export function useKaryawanProfile() {
     fetchProfile();
   }, []);
 
-  useEffect(() => {
-    // Debug: track loading, user, and error state
-    console.log('DEBUG TRACKER:', { loading, profile, error });
-  }, [loading, profile, error]);
+  // No debug effects needed
 
   return { profile, loading, error, role };
 }

@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabaseClient";
 
+interface EditableField {
+  panggilan?: string;
+  nama_singkat?: string;
+}
+
 interface Props {
   params: { id: string }
 }
@@ -19,11 +24,15 @@ export default function Page({ params }: Props) {
         setError(null);
         const { data, error } = await supabase
           .from("karyawan")
-          .select("*")
+          .select(`
+            *,
+            editable (panggilan, nama_singkat)
+          `)
           .eq("id", params.id)
           .single();
 
         if (error) throw error;
+        console.log('Profile data:', JSON.stringify(data, null, 2));
         setProfile(data);
       } catch (err: any) {
         setError(err.message);
@@ -39,7 +48,9 @@ export default function Page({ params }: Props) {
     <div className="rounded-2xl min-h-screen flex flex-col bg-white">
       <div className="pt-8 px-6">
         <h1 className="text-3xl font-regular mb-12 text-blue-900">
-          {profile ? `Profil ${profile.panggilan && profile.panggilan !== 'Tidak ada panggilan khusus' ? ` ${profile.panggilan}` : ''} ${profile.nama_singkat || profile.nama_lengkap}` : 'Profil'}
+          {profile ? `Profil ${
+            (profile.editable?.[0]?.panggilan || (profile.panggilan && profile.panggilan !== 'Tidak ada panggilan khusus' ? profile.panggilan : ''))
+          } ${profile.editable?.[0]?.nama_singkat || profile.nama_lengkap}` : 'Profil'}
         </h1>
         {loading ? (
           <p className="text-gray-400">Loading...</p>
