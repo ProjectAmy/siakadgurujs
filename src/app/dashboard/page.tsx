@@ -21,7 +21,7 @@ export default function Dashboard() {
             <span className="text-red-500">Profil tidak ditemukan</span>
           ) : (
             <span className="text-xl md:text-2xl font-regular text-blue-900 text-center block">
-              Ahlan Wa Sahlan,<br />
+              Ahlan Wa Sahlan,&nbsp;
               <span className="font-bold"> 
                 {profile.editable?.[0]?.panggilan || profile.panggilan} {profile.editable?.[0]?.nama_singkat || profile.nama_singkat}
               </span>!
