@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useKaryawanProfile } from "../../components/useKaryawanProfile";
+import { supabase } from '../../../utils/supabaseClient';
 
 export default function ComplainPage() {
   const { profile, loading, error } = useKaryawanProfile();
@@ -31,23 +32,44 @@ export default function ComplainPage() {
       return;
     }
 
+    if (!profile) {
+      setSubmitStatus({
+        success: false,
+        message: 'Tidak dapat mengidentifikasi pengguna. Silakan muat ulang halaman.'
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { data, error } = await supabase
+        .from('complain')
+        .insert([
+          { 
+            email: profile.email_address, 
+            title: formData.title.trim(), 
+            description: formData.description.trim(),
+            status: 'submitted',
+            created_at: new Date().toISOString()
+          }
+        ])
+        .select();
+      
+      if (error) throw error;
       
       // Reset form on success
       setFormData({ title: '', description: '' });
       setSubmitStatus({
         success: true,
-        message: 'Komplain berhasil dikirim!'
+        message: 'Komplain berhasil dikirim! Kami akan menindaklanjuti keluhan Anda segera.'
       });
     } catch (error) {
+      console.error('Error submitting complaint:', error);
       setSubmitStatus({
         success: false,
-        message: 'Terjadi kesalahan. Silakan coba lagi.'
+        message: 'Terjadi kesalahan saat mengirim komplain. Silakan coba lagi nanti.'
       });
     } finally {
       setIsSubmitting(false);
