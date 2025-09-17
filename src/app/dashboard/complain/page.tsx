@@ -40,12 +40,29 @@ export default function ComplainPage() {
       return;
     }
 
+    // Check if Supabase is properly initialized
+    if (!supabase) {
+      console.error('Supabase client is not initialized');
+      setSubmitStatus({
+        success: false,
+        message: 'Kesalahan konfigurasi sistem. Silakan hubungi administrator.'
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
+      console.log('Submitting complaint with data:', {
+        email: profile.email_address,
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        status: 'submitted'
+      });
+
       const { data, error } = await supabase
-        .from('complain')
+        .from('complaint')
         .insert([
           { 
             email: profile.email_address, 
@@ -57,7 +74,17 @@ export default function ComplainPage() {
         ])
         .select();
       
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error details:', {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+          hint: error.hint
+        });
+        throw error;
+      }
+      
+      console.log('Complaint submitted successfully:', data);
       
       // Reset form on success
       setFormData({ title: '', description: '' });
@@ -65,11 +92,23 @@ export default function ComplainPage() {
         success: true,
         message: 'Komplain berhasil dikirim! Kami akan menindaklanjuti keluhan Anda segera.'
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting complaint:', error);
+      
+      let errorMessage = 'Terjadi kesalahan saat mengirim komplain. Silakan coba lagi nanti.';
+      
+      // Handle specific error cases
+      if (error.code === '23505') {
+        errorMessage = 'Anda sudah mengirim komplain dengan judul yang sama. Mohon gunakan judul yang berbeda.';
+      } else if (error.message?.includes('network')) {
+        errorMessage = 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda dan coba lagi.';
+      } else if (error.message) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
       setSubmitStatus({
         success: false,
-        message: 'Terjadi kesalahan saat mengirim komplain. Silakan coba lagi nanti.'
+        message: errorMessage
       });
     } finally {
       setIsSubmitting(false);
