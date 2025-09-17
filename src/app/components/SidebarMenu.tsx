@@ -84,7 +84,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
             <div>
               <div className="text-xs text-gray-400 mb-1">Lainnya</div>
               <ul className="space-y-1">
-                <li><Link href="/dashboard/complain" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-blue-50 text-gray-700"><span className="material-icons text-base">report</span>Laporan</Link></li>
+                <li><Link href="/dashboard/complaint" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-blue-50 text-gray-700"><span className="material-icons text-base">report</span>Laporan</Link></li>
               </ul>
             </div>
           </nav>
@@ -165,7 +165,7 @@ export default function SidebarMenu({ isOpen, onClose }: SidebarMenuProps) {
               <div>
                 <div className="text-xs text-gray-400 mb-1">Lainnya</div>
                 <ul className="space-y-1">
-                  <li><Link href="/dashboard/complain" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-blue-50 text-gray-700" onClick={onClose}><span className="material-icons text-base">report</span>Laporan</Link></li>
+                  <li><Link href="/dashboard/complaint" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-blue-50 text-gray-700" onClick={onClose}><span className="material-icons text-base">report</span>Laporan</Link></li>
                 </ul>
               </div>
             </nav>

@@ -4,10 +4,78 @@ import DashboardFragmentCleanup from "./DashboardFragmentCleanup";
 import { useKaryawanProfile } from "../components/useKaryawanProfile";
 import { useAllKaryawanTableData, KaryawanTableRow } from "../components/useAllKaryawanEmails";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { supabase } from '../../utils/supabaseClient';
+
+interface ComplaintCounts {
+  submitted: number;
+  'in review': number;
+  'in progress': number;
+  resolved: number;
+  closed: number;
+}
 
 export default function Dashboard() {
   const { profile, loading, error, role } = useKaryawanProfile();
-  const { karyawan, loading: loadingKaryawan, error: errorKaryawan } = useAllKaryawanTableData();
+  const [karyawan, setKaryawan] = useState<any[]>([]);
+  const [loadingKaryawan, setLoadingKaryawan] = useState(true);
+  const [errorKaryawan, setErrorKaryawan] = useState<string | null>(null);
+  const [complaintCounts, setComplaintCounts] = useState<ComplaintCounts>({
+    submitted: 0,
+    'in review': 0,
+    'in progress': 0,
+    resolved: 0,
+    closed: 0
+  });
+  const [loadingComplaints, setLoadingComplaints] = useState(true);
+
+  const { karyawan: karyawanData, loading: loadingKaryawanData, error: errorKaryawanData } = useAllKaryawanTableData();
+
+  useEffect(() => {
+    setKaryawan(karyawanData);
+    setLoadingKaryawan(loadingKaryawanData);
+    setErrorKaryawan(errorKaryawanData);
+  }, [karyawanData, loadingKaryawanData, errorKaryawanData]);
+
+  // Fetch complaint counts from Supabase
+  useEffect(() => {
+    const fetchComplaintCounts = async () => {
+      try {
+        setLoadingComplaints(true);
+        
+        // Fetch all complaints
+        const { data, error } = await supabase
+          .from('complaint')
+          .select('status');
+
+        if (error) throw error;
+
+        // Count complaints by status
+        const counts = {
+          submitted: 0,
+          'in review': 0,
+          'in progress': 0,
+          resolved: 0,
+          closed: 0
+        };
+
+        data?.forEach(complaint => {
+          if (complaint.status in counts) {
+            counts[complaint.status as keyof typeof counts]++;
+          }
+        });
+
+        setComplaintCounts(counts);
+      } catch (error) {
+        console.error('Error fetching complaint counts:', error);
+      } finally {
+        setLoadingComplaints(false);
+      }
+    };
+
+    fetchComplaintCounts();
+  }, []);
+
   return (
     <>
       <DashboardFragmentCleanup />
@@ -61,6 +129,63 @@ export default function Dashboard() {
               <span className="text-xs text-gray-500 mt-1">Honorer</span>
               <span className="text-xl font-bold text-blue-900 mt-1">{karyawan.filter(k => k.status_kepegawaian && k.status_kepegawaian.toLowerCase().includes('honorer')).length}</span>
             </div>
+          </div>
+          {/* Status Indicators */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 pt-2">
+            {/* Submitted */}
+            <Link href="/dashboard/listcomplaint?status=submitted" className="hover:opacity-90 transition-opacity">
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
+                <div className="text-blue-600 font-medium">Submitted</div>
+                <div className="text-2xl font-bold text-blue-700">
+                  {loadingComplaints ? '...' : complaintCounts.submitted}
+                </div>
+                <div className="text-xs text-blue-500 mt-1">Menunggu</div>
+              </div>
+            </Link>
+            
+            {/* In Review */}
+            <Link href="/dashboard/listcomplaint?status=in review" className="hover:opacity-90 transition-opacity">
+              <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-center">
+                <div className="text-yellow-600 font-medium">In Review</div>
+                <div className="text-2xl font-bold text-yellow-700">
+                  {loadingComplaints ? '...' : complaintCounts['in review']}
+                </div>
+                <div className="text-xs text-yellow-500 mt-1">Ditinjau</div>
+              </div>
+            </Link>
+            
+            {/* In Progress */}
+            <Link href="/dashboard/listcomplaint?status=in progress" className="hover:opacity-90 transition-opacity">
+              <div className="bg-purple-50 p-3 rounded-lg border border-purple-100 text-center">
+                <div className="text-purple-600 font-medium">In Progress</div>
+                <div className="text-2xl font-bold text-purple-700">
+                  {loadingComplaints ? '...' : complaintCounts['in progress']}
+                </div>
+                <div className="text-xs text-purple-500 mt-1">Diproses</div>
+              </div>
+            </Link>
+            
+            {/* Resolved */}
+            <Link href="/dashboard/listcomplaint?status=resolved" className="hover:opacity-90 transition-opacity">
+              <div className="bg-green-50 p-3 rounded-lg border border-green-100 text-center">
+                <div className="text-green-600 font-medium">Resolved</div>
+                <div className="text-2xl font-bold text-green-700">
+                  {loadingComplaints ? '...' : complaintCounts.resolved}
+                </div>
+                <div className="text-xs text-green-500 mt-1">Selesai</div>
+              </div>
+            </Link>
+            
+            {/* Closed */}
+            <Link href="/dashboard/listcomplaint?status=closed" className="hover:opacity-90 transition-opacity">
+              <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 text-center">
+                <div className="text-gray-600 font-medium">Closed</div>
+                <div className="text-2xl font-bold text-gray-700">
+                  {loadingComplaints ? '...' : complaintCounts.closed}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">Ditutup</div>
+              </div>
+            </Link>
           </div>
           <h2 className="text-lg font-semibold mb-2 text-blue-800 w-full max-w-3xl text-left">Tabel Data Karyawan</h2>
             {loadingKaryawan ? (

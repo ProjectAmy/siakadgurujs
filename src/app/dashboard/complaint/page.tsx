@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useKaryawanProfile } from "../../components/useKaryawanProfile";
 import { supabase } from '../../../utils/supabaseClient';
 
-export default function ComplainPage() {
+interface Complaint {
+  id: string;
+  title: string;
+  description: string;
+  status: 'submitted' | 'in review' | 'in progress' | 'resolved' | 'closed';
+  created_at: string;
+  email: string;
+}
+
+export default function ComplaintPage() {
   const { profile, loading, error } = useKaryawanProfile();
   const [formData, setFormData] = useState({
     title: '',
@@ -12,6 +21,44 @@ export default function ComplainPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{success: boolean; message: string} | null>(null);
+  const [userComplaints, setUserComplaints] = useState<Complaint[]>([]);
+  const [isLoadingComplaints, setIsLoadingComplaints] = useState(true);
+  
+  // Fetch user's complaints
+  useEffect(() => {
+    const fetchUserComplaints = async () => {
+      if (!profile?.email_address) return;
+      
+      try {
+        setIsLoadingComplaints(true);
+        const { data, error } = await supabase
+          .from('complaint')
+          .select('*')
+          .eq('email', profile.email_address)
+          .order('created_at', { ascending: false });
+          
+        if (error) throw error;
+        
+        setUserComplaints(data || []);
+      } catch (error) {
+        console.error('Error fetching complaints:', error);
+        setSubmitStatus({
+          success: false,
+          message: 'Gagal memuat daftar komplain. Silakan muat ulang halaman.'
+        });
+      } finally {
+        setIsLoadingComplaints(false);
+      }
+    };
+    
+    fetchUserComplaints();
+  }, [profile?.email_address]);
+  
+  // View complaint details
+  const viewComplaintDetails = (complaint: Complaint) => {
+    // You can implement a modal or redirect to a detailed view
+    alert(`Detail Komplain:\nJudul: ${complaint.title}\nStatus: ${complaint.status}\n\n${complaint.description}`);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -135,9 +182,82 @@ export default function ComplainPage() {
               </span>
             )}
           </div>
-          <div className="pt-8 px-6 mb-8">
+
+          {/* User's Previous Complaints */}
+          <div className="mb-8 pt-8">
+              <h2 className="text-lg font-semibold text-blue-900 mb-3">Daftar Komplain Saya</h2>
+              
+              {isLoadingComplaints ? (
+                <div className="animate-pulse">Memuat data komplain...</div>
+              ) : (
+                <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Tanggal
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Judul
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Aksi
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {userComplaints.length > 0 ? (
+                        userComplaints.map((complaint) => (
+                          <tr key={complaint.id}>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {new Date(complaint.created_at).toLocaleDateString('id-ID')}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                              {complaint.title}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                complaint.status === 'submitted' ? 'bg-blue-100 text-blue-800' :
+                                complaint.status === 'in review' ? 'bg-yellow-100 text-yellow-800' :
+                                complaint.status === 'in progress' ? 'bg-purple-100 text-purple-800' :
+                                complaint.status === 'resolved' ? 'bg-green-100 text-green-800' :
+                                'bg-gray-100 text-gray-800'
+                              }`}>
+                                {complaint.status === 'submitted' ? 'Submitted' :
+                                 complaint.status === 'in review' ? 'In Review' :
+                                 complaint.status === 'in progress' ? 'In Progress' :
+                                 complaint.status === 'resolved' ? 'Resolved' : 'Closed'}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              <button 
+                                onClick={() => viewComplaintDetails(complaint)}
+                                className="text-blue-600 hover:text-blue-900"
+                              >
+                                Lihat
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan={4} className="px-6 py-4 text-center text-sm text-gray-500">
+                            Belum ada komplain yang diajukan
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          
+          <div className="pt-2 px-6 mb-6">
             <h1 className="text-2xl font-bold text-blue-900 mb-2">Formulir Komplain</h1>
-            <p className="text-gray-600">Silakan sampaikan keluhan atau masukan Anda</p>
+            <p className="text-gray-600 mb-6">Sampaikan keluhan Anda!</p>
           </div>
 
           <div className="bg-white shadow-md rounded-lg p-6">

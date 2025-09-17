@@ -28,6 +28,7 @@ export interface KaryawanProfile {
   status_pernikahan: string;
   email_address: string;
   nomor_whatsapp: string;
+  role?: 'admin' | 'user';
   pendidikan_terakhir: string;
   almamater: string;
   bergabung: string;
