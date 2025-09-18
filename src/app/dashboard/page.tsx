@@ -135,55 +135,55 @@ export default function Dashboard() {
             {/* Submitted */}
             <Link href="/dashboard/listcomplaint?status=submitted" className="hover:opacity-90 transition-opacity">
               <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 text-center">
-                <div className="text-blue-600 font-medium">Submitted</div>
-                <div className="text-2xl font-bold text-blue-700">
+                <div className="text-blue-600 font-reguler">Submitted</div>
+                <div className="text-2xl font-reguler text-blue-700">
                   {loadingComplaints ? '...' : complaintCounts.submitted}
                 </div>
-                <div className="text-xs text-blue-500 mt-1">Menunggu</div>
+                <div className="text-blue-500 mt-1">Menunggu</div>
               </div>
             </Link>
             
             {/* In Review */}
             <Link href="/dashboard/listcomplaint?status=in review" className="hover:opacity-90 transition-opacity">
               <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-center">
-                <div className="text-yellow-600 font-medium">In Review</div>
-                <div className="text-2xl font-bold text-yellow-700">
+                <div className="text-yellow-600 font-regular">In Review</div>
+                <div className="text-2xl font-regular text-yellow-700">
                   {loadingComplaints ? '...' : complaintCounts['in review']}
                 </div>
-                <div className="text-xs text-yellow-500 mt-1">Ditinjau</div>
+                <div className="text-yellow-500 mt-1">Ditinjau</div>
               </div>
             </Link>
             
             {/* In Progress */}
             <Link href="/dashboard/listcomplaint?status=in progress" className="hover:opacity-90 transition-opacity">
               <div className="bg-purple-50 p-3 rounded-lg border border-purple-100 text-center">
-                <div className="text-purple-600 font-medium">In Progress</div>
-                <div className="text-2xl font-bold text-purple-700">
+                <div className="text-purple-600 font-regular">In Progress</div>
+                <div className="text-2xl font-regular text-purple-700">
                   {loadingComplaints ? '...' : complaintCounts['in progress']}
                 </div>
-                <div className="text-xs text-purple-500 mt-1">Diproses</div>
+                <div className="text-purple-500 mt-1">Diproses</div>
               </div>
             </Link>
             
             {/* Resolved */}
             <Link href="/dashboard/listcomplaint?status=resolved" className="hover:opacity-90 transition-opacity">
               <div className="bg-green-50 p-3 rounded-lg border border-green-100 text-center">
-                <div className="text-green-600 font-medium">Resolved</div>
-                <div className="text-2xl font-bold text-green-700">
+                <div className="text-green-600 font-regular">Resolved</div>
+                <div className="text-2xl font-regular text-green-700">
                   {loadingComplaints ? '...' : complaintCounts.resolved}
                 </div>
-                <div className="text-xs text-green-500 mt-1">Selesai</div>
+                <div className="text-green-500 mt-1">Selesai</div>
               </div>
             </Link>
             
             {/* Closed */}
             <Link href="/dashboard/listcomplaint?status=closed" className="hover:opacity-90 transition-opacity">
               <div className="bg-gray-50 p-3 rounded-lg border border-gray-200 text-center">
-                <div className="text-gray-600 font-medium">Closed</div>
-                <div className="text-2xl font-bold text-gray-700">
+                <div className="text-gray-600 font-regular">Closed</div>
+                <div className="text-2xl font-regular text-gray-700">
                   {loadingComplaints ? '...' : complaintCounts.closed}
                 </div>
-                <div className="text-xs text-gray-500 mt-1">Ditutup</div>
+                <div className="text-gray-600 mt-1">Ditutup</div>
               </div>
             </Link>
           </div>
